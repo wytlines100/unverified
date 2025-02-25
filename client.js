@@ -10,263 +10,467 @@
 // @grant        GM_getValue
 // ==/UserScript==
 
-(function(_0x212079, _0x3383ec) {
-    const _0x1af35d = _0x4b42,
-        _0x30edf8 = _0x212079();
-    while (!![]) {
-        try {
-            const _0x180c30 = parseInt(_0x1af35d(0x1e0)) / 0x1 * (parseInt(_0x1af35d(0x1fa)) / 0x2) + -parseInt(_0x1af35d(0x21d)) / 0x3 * (parseInt(_0x1af35d(0x1f5)) / 0x4) + -parseInt(_0x1af35d(0x21e)) / 0x5 + parseInt(_0x1af35d(0x1e4)) / 0x6 + parseInt(_0x1af35d(0x218)) / 0x7 * (-parseInt(_0x1af35d(0x225)) / 0x8) + parseInt(_0x1af35d(0x1e1)) / 0x9 * (-parseInt(_0x1af35d(0x229)) / 0xa) + -parseInt(_0x1af35d(0x206)) / 0xb * (-parseInt(_0x1af35d(0x207)) / 0xc);
-            if (_0x180c30 === _0x3383ec) break;
-            else _0x30edf8['push'](_0x30edf8['shift']());
-        } catch (_0x13efb2) {
-            _0x30edf8['push'](_0x30edf8['shift']());
-        }
+(function () {
+  'use strict'
+  const normalWatermark = document.createElement('div')
+  normalWatermark.style.position = 'fixed'
+  normalWatermark.style.top = '10px'
+  normalWatermark.style.left = '10px'
+  normalWatermark.style.zIndex = '9999'
+  normalWatermark.style.fontFamily = 'Roboto Mono, monospace'
+  normalWatermark.style.fontSize = '20px'
+  normalWatermark.style.color = 'white'
+  normalWatermark.style.textShadow = '0 0 10px rgba(255, 0, 0, 0.8)'
+  normalWatermark.style.pointerEvents = 'none'
+  normalWatermark.innerHTML =
+    '\n        <span>unverified</span>\n        <span style="color: red; font-size: 20px; margin-left: 5px; display: inline-block; transform: rotate(180deg);">&#10004;</span>\n    '
+  document.body.appendChild(normalWatermark)
+  document.body.appendChild(normalWatermark)
+  const moduleElements = document.createElement('div')
+  moduleElements.style.position = 'fixed'
+  moduleElements.style.top = '10px'
+  moduleElements.style.left = '10px'
+  moduleElements.style.zIndex = '9999'
+  moduleElements.style.backgroundColor = '#1c1c1c'
+  moduleElements.style.borderRadius = '8px'
+  moduleElements.style.padding = '10px'
+  moduleElements.style.width = '250px'
+  moduleElements.style.display = 'none'
+  const demoWatermark = document.createElement('div')
+  demoWatermark.style.color = 'white'
+  demoWatermark.style.fontFamily = 'Roboto Mono, monospace'
+  demoWatermark.style.fontSize = '20px'
+  demoWatermark.style.textShadow = '0 0 10px rgba(255, 0, 0, 0.8)'
+  demoWatermark.style.display = 'flex'
+  demoWatermark.style.alignItems = 'center'
+  demoWatermark.style.justifyContent = 'center'
+  demoWatermark.innerHTML =
+    '\n        <span>unverified</span>\n        <span style="color: red; font-size: 20px; margin-left: 5px; transform: rotate(180deg);">&#10004;</span>\n        <span style="color: white; font-size: 15px; margin-left: 5px;">Demo</span>\n    '
+  moduleElements.appendChild(demoWatermark)
+  let cpsDisplay,
+    fpsDisplay,
+    cps = 0,
+    cpsToDisplay = 0,
+    prevCPS = 0,
+    cpsCounterInterval,
+    fps = 0,
+    lastEndTimestamp = performance.now(),
+    font = document.body.style.fontFamily
+  function displayCPSCounter() {
+    cpsDisplay = document.createElement('div')
+    cpsDisplay.className = 'cps-display'
+    cpsDisplay.style.position = 'fixed'
+    cpsDisplay.style.bottom = '10px'
+    cpsDisplay.style.right = '10px'
+    cpsDisplay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'
+    cpsDisplay.style.color = 'white'
+    cpsDisplay.style.padding = '10px'
+    cpsDisplay.style.borderRadius = '4px'
+    cpsDisplay.style.fontFamily = 'Roboto Mono, monospace'
+    cpsDisplay.style.zIndex = '10000'
+    cpsDisplay.style.width = '100px'
+    cpsDisplay.style.height = '40px'
+    cpsDisplay.style.cursor = 'move'
+    document.body.appendChild(cpsDisplay)
+    makeDraggable(cpsDisplay)
+  }
+  function updateCPSLabel() {
+    if (cpsDisplay) {
+      if (cpsToDisplay < prevCPS) {
+        cpsToDisplay++
+      } else {
+        cpsToDisplay > prevCPS && cpsToDisplay--
+      }
+      cpsDisplay.innerText = 'CPS: ' + cpsToDisplay
+      cpsToDisplay !== prevCPS && requestAnimationFrame(updateCPSLabel)
     }
-}(_0x5dcf, 0x65d33), (function() {
-    'use strict';
-    const _0x4a34c0 = _0x4b42;
-    const _0x7451ff = document['createElement'](_0x4a34c0(0x212));
-    _0x7451ff[_0x4a34c0(0x1bf)][_0x4a34c0(0x22a)] = _0x4a34c0(0x1e6), _0x7451ff['style'][_0x4a34c0(0x1f9)] = _0x4a34c0(0x203), _0x7451ff[_0x4a34c0(0x1bf)][_0x4a34c0(0x1ef)] = _0x4a34c0(0x203), _0x7451ff[_0x4a34c0(0x1bf)]['zIndex'] = '9999', _0x7451ff[_0x4a34c0(0x1bf)]['fontFamily'] = 'Roboto\x20Mono,\x20monospace', _0x7451ff[_0x4a34c0(0x1bf)]['fontSize'] = _0x4a34c0(0x233), _0x7451ff[_0x4a34c0(0x1bf)][_0x4a34c0(0x24e)] = _0x4a34c0(0x1c8), _0x7451ff['style'][_0x4a34c0(0x23e)] = _0x4a34c0(0x1ff), _0x7451ff[_0x4a34c0(0x1bf)][_0x4a34c0(0x1da)] = _0x4a34c0(0x211), _0x7451ff[_0x4a34c0(0x1c5)] = _0x4a34c0(0x1c0), document[_0x4a34c0(0x246)][_0x4a34c0(0x201)](_0x7451ff), document[_0x4a34c0(0x246)][_0x4a34c0(0x201)](_0x7451ff);
-    const _0x2552a7 = document[_0x4a34c0(0x236)](_0x4a34c0(0x212));
-    _0x2552a7[_0x4a34c0(0x1bf)][_0x4a34c0(0x22a)] = 'fixed', _0x2552a7[_0x4a34c0(0x1bf)][_0x4a34c0(0x1f9)] = _0x4a34c0(0x203), _0x2552a7[_0x4a34c0(0x1bf)][_0x4a34c0(0x1ef)] = '10px', _0x2552a7['style'][_0x4a34c0(0x1eb)] = '9999', _0x2552a7[_0x4a34c0(0x1bf)][_0x4a34c0(0x1f1)] = '#1c1c1c', _0x2552a7[_0x4a34c0(0x1bf)]['borderRadius'] = _0x4a34c0(0x213), _0x2552a7[_0x4a34c0(0x1bf)]['padding'] = _0x4a34c0(0x203), _0x2552a7['style'][_0x4a34c0(0x1c3)] = _0x4a34c0(0x1c2), _0x2552a7[_0x4a34c0(0x1bf)]['display'] = _0x4a34c0(0x211);
-    const _0x3db7ff = document[_0x4a34c0(0x236)](_0x4a34c0(0x212));
-    _0x3db7ff[_0x4a34c0(0x1bf)]['color'] = _0x4a34c0(0x1c8), _0x3db7ff[_0x4a34c0(0x1bf)][_0x4a34c0(0x223)] = _0x4a34c0(0x1e8), _0x3db7ff['style'][_0x4a34c0(0x20f)] = _0x4a34c0(0x233), _0x3db7ff['style'][_0x4a34c0(0x23e)] = _0x4a34c0(0x1ff), _0x3db7ff['style'][_0x4a34c0(0x202)] = 'flex', _0x3db7ff['style'][_0x4a34c0(0x22e)] = _0x4a34c0(0x1c6), _0x3db7ff['style'][_0x4a34c0(0x1cc)] = _0x4a34c0(0x1c6), _0x3db7ff[_0x4a34c0(0x1c5)] = '\x0a\x20\x20\x20\x20\x20\x20\x20\x20<span>unverified</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<span\x20style=\x22color:\x20red;\x20font-size:\x2020px;\x20margin-left:\x205px;\x20transform:\x20rotate(180deg);\x22>&#10004;</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<span\x20style=\x22color:\x20white;\x20font-size:\x2015px;\x20margin-left:\x205px;\x22>Demo</span>\x0a\x20\x20\x20\x20', _0x2552a7['appendChild'](_0x3db7ff);
-    let _0x1649f7, _0x3f2ad8, _0x1108bf = 0x0,
-        _0x2d7d32 = 0x0,
-        _0x77d4e6 = 0x0,
-        _0x23287c, _0x119d56 = 0x0,
-        _0x39128f = performance[_0x4a34c0(0x217)](),
-        _0x5be34f = document[_0x4a34c0(0x246)][_0x4a34c0(0x1bf)]['fontFamily'];
-
-    function _0x1bb641() {
-        const _0x40f0f0 = _0x4a34c0;
-        _0x1649f7 = document['createElement'](_0x40f0f0(0x212)), _0x1649f7[_0x40f0f0(0x22c)] = 'cps-display', _0x1649f7[_0x40f0f0(0x1bf)][_0x40f0f0(0x22a)] = _0x40f0f0(0x1e6), _0x1649f7['style']['bottom'] = _0x40f0f0(0x203), _0x1649f7[_0x40f0f0(0x1bf)]['right'] = '10px', _0x1649f7[_0x40f0f0(0x1bf)]['backgroundColor'] = 'rgba(0,\x200,\x200,\x200.8)', _0x1649f7[_0x40f0f0(0x1bf)][_0x40f0f0(0x24e)] = 'white', _0x1649f7[_0x40f0f0(0x1bf)][_0x40f0f0(0x1dd)] = _0x40f0f0(0x203), _0x1649f7['style'][_0x40f0f0(0x1e9)] = _0x40f0f0(0x1de), _0x1649f7[_0x40f0f0(0x1bf)][_0x40f0f0(0x223)] = _0x40f0f0(0x1e8), _0x1649f7[_0x40f0f0(0x1bf)][_0x40f0f0(0x1eb)] = _0x40f0f0(0x1d8), _0x1649f7['style'][_0x40f0f0(0x1c3)] = _0x40f0f0(0x22d), _0x1649f7['style'][_0x40f0f0(0x249)] = _0x40f0f0(0x219), _0x1649f7[_0x40f0f0(0x1bf)][_0x40f0f0(0x1ce)] = _0x40f0f0(0x1f4), document[_0x40f0f0(0x246)][_0x40f0f0(0x201)](_0x1649f7), _0x12a44f(_0x1649f7);
+  }
+  function cpsCounterOnLoad() {
+    cps = 0
+    prevCPS = 0
+    document.addEventListener('click', updateCPS)
+    cpsCounterInterval = setInterval(() => {
+      prevCPS = cps
+      cps = 0
+      updateCPSLabel()
+    }, 1000)
+  }
+  function onModDisable() {
+    document.removeEventListener('click', updateCPS)
+    clearInterval(cpsCounterInterval)
+    cpsDisplay && (cpsDisplay.remove(), (cpsDisplay = null))
+  }
+  function updateCPS() {
+    cps++
+  }
+  function displayFPS() {
+    fpsDisplay = document.createElement('div')
+    fpsDisplay.className = 'fps-display'
+    fpsDisplay.style.position = 'fixed'
+    fpsDisplay.style.bottom = '60px'
+    fpsDisplay.style.right = '10px'
+    fpsDisplay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'
+    fpsDisplay.style.color = 'white'
+    fpsDisplay.style.padding = '10px'
+    fpsDisplay.style.borderRadius = '4px'
+    fpsDisplay.style.fontFamily = 'Roboto Mono, monospace'
+    fpsDisplay.style.zIndex = '10000'
+    fpsDisplay.style.width = '100px'
+    fpsDisplay.style.height = '40px'
+    fpsDisplay.style.cursor = 'move'
+    document.body.appendChild(fpsDisplay)
+    makeDraggable(fpsDisplay)
+  }
+  /**
+   * @type {FrameRequestCallback}
+   */
+  function updateFPS(prevEndTimestamp) {
+    fps++
+    const updateDelay = prevEndTimestamp - lastEndTimestamp
+    updateDelay >= 1000 &&
+      (fpsDisplay &&
+        fpsDisplay.style.display !== 'none' &&
+        (fpsDisplay.innerText = 'FPS: ' + fps),
+      (fps = 0),
+      (lastEndTimestamp = prevEndTimestamp))
+    requestAnimationFrame(updateFPS)
+  }
+  function addFPSAnimationFrame() {
+    requestAnimationFrame(updateFPS)
+  }
+  function empty() {}
+  function makeDraggable(element) {
+    let xDiff, yDiff
+    element.addEventListener('mousedown', (event) => {
+      xDiff = event.clientX - element.getBoundingClientRect().left
+      yDiff = event.clientY - element.getBoundingClientRect().top
+      document.addEventListener('mousemove', mouseMove)
+      document.addEventListener('mouseup', mouseUp)
+    })
+    function mouseMove(event) {
+      element.style.left = event.clientX - xDiff + 'px'
+      element.style.top = event.clientY - yDiff + 'px'
     }
-
-
-    function _0x535427() {
-        const _0x590f6b = _0x4a34c0;
-        if (_0x1649f7) {
-            if (_0x2d7d32 < _0x77d4e6) _0x2d7d32++;
-            else _0x2d7d32 > _0x77d4e6 && _0x2d7d32--;
-            _0x1649f7[_0x590f6b(0x1df)] = _0x590f6b(0x1d3) + _0x2d7d32, _0x2d7d32 !== _0x77d4e6 && requestAnimationFrame(_0x535427);
-        }
+    function mouseUp() {
+      document.removeEventListener('mousemove', mouseMove)
+      document.removeEventListener('mouseup', mouseUp)
     }
-
-    function _0x141fa1() {
-        const _0xe9f3ca = _0x4a34c0;
-        _0x1108bf = 0x0, _0x77d4e6 = 0x0, document[_0xe9f3ca(0x245)](_0xe9f3ca(0x235), _0x4bf9bc), _0x23287c = setInterval(() => {
-            _0x77d4e6 = _0x1108bf, _0x1108bf = 0x0, _0x535427();
-        }, 0x3e8);
-    }
-
-    function _0x9a339a() {
-        const _0x3b8c99 = _0x4a34c0;
-        document[_0x3b8c99(0x1e7)](_0x3b8c99(0x235), _0x4bf9bc), clearInterval(_0x23287c), _0x1649f7 && (_0x1649f7['remove'](), _0x1649f7 = null);
-    }
-
-    function _0x4bf9bc() {
-        _0x1108bf++;
-    }
-
-    function _0x49d153() {
-        const _0x58f15f = _0x4a34c0;
-        _0x3f2ad8 = document[_0x58f15f(0x236)](_0x58f15f(0x212)), _0x3f2ad8[_0x58f15f(0x22c)] = 'fps-display', _0x3f2ad8['style'][_0x58f15f(0x22a)] = _0x58f15f(0x1e6), _0x3f2ad8[_0x58f15f(0x1bf)][_0x58f15f(0x1c4)] = _0x58f15f(0x1f2), _0x3f2ad8[_0x58f15f(0x1bf)][_0x58f15f(0x20c)] = '10px', _0x3f2ad8[_0x58f15f(0x1bf)][_0x58f15f(0x1f1)] = 'rgba(0,\x200,\x200,\x200.8)', _0x3f2ad8[_0x58f15f(0x1bf)][_0x58f15f(0x24e)] = _0x58f15f(0x1c8), _0x3f2ad8[_0x58f15f(0x1bf)][_0x58f15f(0x1dd)] = _0x58f15f(0x203), _0x3f2ad8['style'][_0x58f15f(0x1e9)] = _0x58f15f(0x1de), _0x3f2ad8[_0x58f15f(0x1bf)]['fontFamily'] = _0x58f15f(0x1e8), _0x3f2ad8['style'][_0x58f15f(0x1eb)] = _0x58f15f(0x1d8), _0x3f2ad8['style'][_0x58f15f(0x1c3)] = _0x58f15f(0x22d), _0x3f2ad8[_0x58f15f(0x1bf)]['height'] = '40px', _0x3f2ad8[_0x58f15f(0x1bf)][_0x58f15f(0x1ce)] = _0x58f15f(0x1f4), document[_0x58f15f(0x246)][_0x58f15f(0x201)](_0x3f2ad8), _0x12a44f(_0x3f2ad8);
-    }
-
-    function _0x532dc6(_0xed441c) {
-        const _0x4f6bb7 = _0x4a34c0;
-        _0x119d56++;
-        const _0x58fafc = _0xed441c - _0x39128f;
-        _0x58fafc >= 0x3e8 && (_0x3f2ad8 && _0x3f2ad8[_0x4f6bb7(0x1bf)][_0x4f6bb7(0x202)] !== 'none' && (_0x3f2ad8[_0x4f6bb7(0x1df)] = 'FPS:\x20' + _0x119d56), _0x119d56 = 0x0, _0x39128f = _0xed441c), requestAnimationFrame(_0x532dc6);
-    }
-
-    function _0x2f51f1() {
-        requestAnimationFrame(_0x532dc6);
-    }
-
-    function _0x2ccb1a() {}
-
-    function _0x12a44f(_0x47fca0) {
-        const _0x44985e = _0x4a34c0;
-        let _0xfce851, _0x125a38;
-        _0x47fca0[_0x44985e(0x245)]('mousedown', _0x3f5d78 => {
-            const _0x23dfa7 = _0x44985e;
-            _0xfce851 = _0x3f5d78['clientX'] - _0x47fca0[_0x23dfa7(0x23d)]()['left'], _0x125a38 = _0x3f5d78[_0x23dfa7(0x24a)] - _0x47fca0[_0x23dfa7(0x23d)]()[_0x23dfa7(0x1f9)], document[_0x23dfa7(0x245)](_0x23dfa7(0x1bd), _0x438276), document['addEventListener'](_0x23dfa7(0x1e2), _0x51695f);
-        });
-
-        function _0x438276(_0x384374) {
-            const _0x4f4d39 = _0x44985e;
-            _0x47fca0['style'][_0x4f4d39(0x1ef)] = _0x384374[_0x4f4d39(0x226)] - _0xfce851 + 'px', _0x47fca0[_0x4f4d39(0x1bf)][_0x4f4d39(0x1f9)] = _0x384374[_0x4f4d39(0x24a)] - _0x125a38 + 'px';
-        }
-
-        function _0x51695f() {
-            const _0x5172b3 = _0x44985e;
-            document[_0x5172b3(0x1e7)](_0x5172b3(0x1bd), _0x438276), document[_0x5172b3(0x1e7)](_0x5172b3(0x1e2), _0x51695f);
-        }
-    }
-    const _0x525c2a = [{
-        'name': _0x4a34c0(0x231),
-        'settings': [],
-        'active': ![]
-    }, {
-        'name': 'CPS\x20Counter',
-        'settings': [],
-        'active': ![]
-    }, {
-        'name': _0x4a34c0(0x24c),
-        'settings': [],
-        'active': ![]
-    }, {
-        'name': _0x4a34c0(0x1ba),
-        'settings': [],
-        'active': ![]
-    }, {
-        'name': 'Font\x20Change',
-        'settings': [],
-        'active': ![]
-    }];
-
-    function _0x4ce1dc() {
-        const _0xf48d89 = _0x4a34c0,
-            _0xa1da2f = _0x525c2a['reduce']((_0x2fe389, _0x13dcad) => {
-                const _0x389e33 = _0x4b42;
-                return _0x2fe389[_0x13dcad[_0x389e33(0x22f)]] = _0x13dcad[_0x389e33(0x239)], _0x2fe389;
-            }, {});
-        localStorage[_0xf48d89(0x1fc)](_0xf48d89(0x1e5), JSON[_0xf48d89(0x1f0)](_0xa1da2f));
-    }
-
-    function _0x182d02() {
-        const _0x4f5a97 = _0x4a34c0,
-            _0x37e5c9 = JSON[_0x4f5a97(0x240)](localStorage[_0x4f5a97(0x24b)](_0x4f5a97(0x1e5)));
-        _0x37e5c9 && _0x525c2a['forEach'](_0x52c328 => {
-            const _0x513578 = _0x4f5a97;
-            _0x52c328[_0x513578(0x239)] = _0x37e5c9[_0x52c328[_0x513578(0x22f)]] || ![];
-            if (_0x52c328[_0x513578(0x239)]) {
-                document[_0x513578(0x209)](_0x513578(0x1ec) + _0x52c328[_0x513578(0x22f)] + _0x513578(0x21f))[_0x513578(0x227)] = !![];
-                if (_0x52c328[_0x513578(0x22f)] === 'CPS\x20Counter') _0x1bb641(), _0x141fa1();
-                else {
-                    if (_0x52c328[_0x513578(0x22f)] === 'FPS\x20Display') _0x49d153(), _0x3f2ad8[_0x513578(0x1bf)][_0x513578(0x202)] = _0x513578(0x247);
-                    else {
-                        if (_0x52c328[_0x513578(0x22f)] === _0x513578(0x243)) document[_0x513578(0x246)][_0x513578(0x1bf)][_0x513578(0x223)] = _0x513578(0x1e8);
-                        else _0x52c328[_0x513578(0x22f)] === _0x513578(0x231) && (_0x41fd47[_0x513578(0x1bf)][_0x513578(0x202)] = _0x513578(0x247));
-                    }
-                }
+  }
+  const modules = [
+    {
+      name: 'Keystrokes',
+      settings: [],
+      active: false,
+    },
+    {
+      name: 'CPS Counter',
+      settings: [],
+      active: false,
+    },
+    {
+      name: 'FPS Display',
+      settings: [],
+      active: false,
+    },
+    {
+      name: 'FPS Boost',
+      settings: [],
+      active: false,
+    },
+    {
+      name: 'Font Change',
+      settings: [],
+      active: false,
+    },
+  ]
+  function saveSettings() {
+    const settings = modules.reduce((i, module) => {
+      return (i[module.name] = module.active), i
+    }, {})
+    localStorage.setItem('modulesSettings', JSON.stringify(settings))
+  }
+  function loadSettings() {
+    const settingsJson = JSON.parse(localStorage.getItem('modulesSettings'))
+    settingsJson &&
+      modules.forEach((module) => {
+        module.active = settingsJson[module.name] || false
+        if (module.active) {
+          document.querySelector(
+            '.module[data-name="' + module.name + '"] input'
+          ).checked = true
+          if (module.name === 'CPS Counter') {
+            displayCPSCounter()
+            cpsCounterOnLoad()
+          } else {
+            if (module.name === 'FPS Display') {
+              displayFPS()
+              fpsDisplay.style.display = 'block'
+            } else {
+              if (module.name === 'Font Change') {
+                document.body.style.fontFamily = 'Roboto Mono, monospace'
+              } else {
+                module.name === 'Keystrokes' &&
+                  (keystrokesDisplay.style.display = 'block')
+              }
             }
-        });
+          }
+        }
+      })
+  }
+  modules.forEach((mod) => {
+    const el = document.createElement('div')
+    el.className = 'module'
+    el.draggable = true
+    el.style.display = 'flex'
+    el.style.alignItems = 'center'
+    el.style.justifyContent = 'space-between'
+    el.style.padding = '10px'
+    el.style.marginBottom = '10px'
+    el.style.backgroundColor = '#2a2a2a'
+    el.style.borderRadius = '4px'
+    el.style.position = 'relative'
+    el.dataset.name = mod.name
+    const nameSpan = document.createElement('span')
+    nameSpan.className = 'module-name'
+    nameSpan.style.color = 'white'
+    nameSpan.style.fontFamily = 'Roboto Mono, monospace'
+    nameSpan.innerText = mod.name
+    const activeIndicator = document.createElement('div')
+    activeIndicator.className = 'active-indicator'
+    activeIndicator.style.width = '10px'
+    activeIndicator.style.height = '10px'
+    activeIndicator.style.borderRadius = '50%'
+    activeIndicator.style.backgroundColor = 'transparent'
+    activeIndicator.style.marginRight = '5px'
+    el.appendChild(nameSpan)
+    el.appendChild(activeIndicator)
+    const toggleLabel = document.createElement('label')
+    toggleLabel.className = 'switch'
+    toggleLabel.style.position = 'relative'
+    const toggle = document.createElement('input')
+    toggle.type = 'checkbox'
+    toggle.className = 'toggle'
+    toggleLabel.appendChild(toggle)
+    const sliderSpan = document.createElement('span')
+    sliderSpan.className = 'slider'
+    toggleLabel.appendChild(sliderSpan)
+    el.appendChild(toggleLabel)
+    moduleElements.appendChild(el)
+    toggle.addEventListener('change', () => {
+      activeIndicator.style.backgroundColor = toggle.checked
+        ? 'transparent'
+        : 'transparent'
+      mod.active = toggle.checked
+      saveSettings()
+      if (mod.name === 'CPS Counter') {
+        mod.active ? (displayCPSCounter(), cpsCounterOnLoad()) : onModDisable()
+      } else {
+        if (mod.name === 'FPS Display') {
+          mod.active
+            ? (displayFPS(), (fpsDisplay.style.display = 'block'))
+            : (fpsDisplay.style.display = 'none')
+        } else {
+          if (mod.name === 'Font Change') {
+            mod.active
+              ? (document.body.style.fontFamily = 'Roboto Mono, monospace')
+              : (document.body.style.fontFamily = font)
+          } else {
+            mod.name === 'Keystrokes' &&
+              (mod.active
+                ? (keystrokesDisplay.style.display = 'block')
+                : (keystrokesDisplay.style.display = 'none'))
+          }
+        }
+      }
+    })
+  })
+  document.body.appendChild(moduleElements)
+  const css = document.createElement('style')
+  css.textContent =
+    '\n        .switch {\n            position: relative;\n            display: inline-block;\n            width: 34px;\n            height: 20px;\n            transition: transform 0.2s;\n        }\n        .switch:hover {\n            transform: scale(1.1);\n        }\n        .switch input {\n            opacity: 0;\n            width: 0;\n            height: 0;\n        }\n        .slider {\n            position: absolute;\n            cursor: pointer;\n            top: 0;\n            left: 0;\n            right: 0;\n            bottom: 0;\n            background-color: #ccc;\n            border-radius: 34px;\n            transition: .4s;\n        }\n        .slider:before {\n            position: absolute;\n            content: "";\n            height: 16px;\n            width: 16px;\n            left: 2px;\n            bottom: 2px;\n            background-color: white;\n            border-radius: 50%;\n            transition: .4s;\n        }\n        input:checked + .slider {\n            background-color: #28a745;\n        }\n        input:checked + .slider:before {\n            transform: translateX(14px);\n        }\n        .module {\n            transition: transform 0.2s, background-color 0.2s;\n        }\n        .module:hover {\n            transform: scale(1.02);\n            background-color: #3c3c3c;\n        }\n        .fps-display,\n        .cps-display {\n            position: fixed;\n            background-color: rgba(0, 0, 0, 0.8);\n            color: white;\n            padding: 5px;\n            border-radius: 4px;\n            font-family: \'Roboto Mono\', monospace;\n            z-index: 10000;\n        }\n    '
+  document.head.appendChild(css)
+  document.addEventListener('keydown', (e) => {
+    const isInputOrTextArea =
+      document.activeElement.tagName === 'INPUT' ||
+      document.activeElement.tagName === 'TEXTAREA'
+    !isInputOrTextArea &&
+      e.key === 'l' &&
+      (moduleElements.style.display =
+        moduleElements.style.display === 'none' ? 'block' : 'none')
+  })
+  const keystrokesDisplay = document.createElement('div')
+  keystrokesDisplay.style.display = 'none'
+  keystrokesDisplay.style.zIndex = '10000'
+  keystrokesDisplay.style.width = '300px'
+  keystrokesDisplay.style.height = '200px'
+  keystrokesDisplay.style.transform = 'translate(-50%, -50%)'
+  keystrokesDisplay.style.position = 'fixed'
+  keystrokesDisplay.style.left = GM_getValue('left')
+    ? GM_getValue('left') + 'px'
+    : '50%'
+  keystrokesDisplay.style.top = GM_getValue('top') ? GM_getValue('top') + 'px' : '50%'
+  keystrokesDisplay.style.opacity = '100%'
+  keystrokesDisplay.style.boxShadow = 'none'
+  keystrokesDisplay.style.backgroundColor = 'transparent'
+  window.addEventListener('load', () => document.body.appendChild(keystrokesDisplay))
+  let mouseDownOnNonInputElement = false
+  keystrokesDisplay.addEventListener('mousedown', (e) => {
+    e.target.nodeName !== 'INPUT' && (mouseDownOnNonInputElement = true)
+  })
+  document.addEventListener('mousemove', (e) => {
+    if (mouseDownOnNonInputElement) {
+      const clientX = e.clientX,
+        clientY = e.clientY
+      keystrokesDisplay.style.left = clientX + 'px'
+      keystrokesDisplay.style.top = clientY + 'px'
+      GM_setValue('left', clientX)
+      GM_setValue('top', clientY)
     }
-    _0x525c2a['forEach'](_0x3c7fe3 => {
-        const _0x208425 = _0x4a34c0,
-            _0x5d226d = document[_0x208425(0x236)]('div');
-        _0x5d226d['className'] = 'module', _0x5d226d[_0x208425(0x1cf)] = !![], _0x5d226d['style'][_0x208425(0x202)] = 'flex', _0x5d226d[_0x208425(0x1bf)][_0x208425(0x22e)] = 'center', _0x5d226d[_0x208425(0x1bf)]['justifyContent'] = _0x208425(0x216), _0x5d226d[_0x208425(0x1bf)]['padding'] = _0x208425(0x203), _0x5d226d['style'][_0x208425(0x1ed)] = _0x208425(0x203), _0x5d226d['style']['backgroundColor'] = _0x208425(0x1d1), _0x5d226d[_0x208425(0x1bf)][_0x208425(0x1e9)] = _0x208425(0x1de), _0x5d226d['style'][_0x208425(0x22a)] = _0x208425(0x238), _0x5d226d[_0x208425(0x1d9)][_0x208425(0x22f)] = _0x3c7fe3[_0x208425(0x22f)];
-        const _0x5dd754 = document[_0x208425(0x236)](_0x208425(0x214));
-        _0x5dd754['className'] = _0x208425(0x1d5), _0x5dd754[_0x208425(0x1bf)][_0x208425(0x24e)] = _0x208425(0x1c8), _0x5dd754[_0x208425(0x1bf)][_0x208425(0x223)] = 'Roboto\x20Mono,\x20monospace', _0x5dd754[_0x208425(0x1df)] = _0x3c7fe3[_0x208425(0x22f)];
-        const _0x43a16c = document[_0x208425(0x236)](_0x208425(0x212));
-        _0x43a16c[_0x208425(0x22c)] = 'active-indicator', _0x43a16c[_0x208425(0x1bf)][_0x208425(0x1c3)] = '10px', _0x43a16c[_0x208425(0x1bf)][_0x208425(0x249)] = _0x208425(0x203), _0x43a16c[_0x208425(0x1bf)][_0x208425(0x1e9)] = _0x208425(0x1bb), _0x43a16c[_0x208425(0x1bf)][_0x208425(0x1f1)] = _0x208425(0x1d0), _0x43a16c[_0x208425(0x1bf)][_0x208425(0x1d4)] = _0x208425(0x221), _0x5d226d[_0x208425(0x201)](_0x5dd754), _0x5d226d[_0x208425(0x201)](_0x43a16c);
-        const _0x31acf1 = document[_0x208425(0x236)](_0x208425(0x1be));
-        _0x31acf1[_0x208425(0x22c)] = _0x208425(0x1bc), _0x31acf1[_0x208425(0x1bf)][_0x208425(0x22a)] = 'relative';
-        const _0x23a807 = document[_0x208425(0x236)](_0x208425(0x23a));
-        _0x23a807[_0x208425(0x1dc)] = _0x208425(0x208), _0x23a807[_0x208425(0x22c)] = _0x208425(0x23c), _0x31acf1[_0x208425(0x201)](_0x23a807);
-        const _0x334d55 = document['createElement']('span');
-        _0x334d55[_0x208425(0x22c)] = 'slider', _0x31acf1['appendChild'](_0x334d55), _0x5d226d[_0x208425(0x201)](_0x31acf1), _0x2552a7[_0x208425(0x201)](_0x5d226d), _0x23a807['addEventListener'](_0x208425(0x1fe), () => {
-            const _0x4bece7 = _0x208425;
-            _0x43a16c[_0x4bece7(0x1bf)]['backgroundColor'] = _0x23a807[_0x4bece7(0x227)] ? 'transparent' : _0x4bece7(0x1d0), _0x3c7fe3[_0x4bece7(0x239)] = _0x23a807['checked'], _0x4ce1dc();
-            if (_0x3c7fe3[_0x4bece7(0x22f)] === _0x4bece7(0x1d6)) _0x3c7fe3['active'] ? (_0x1bb641(), _0x141fa1()) : _0x9a339a();
-            else {
-                if (_0x3c7fe3[_0x4bece7(0x22f)] === _0x4bece7(0x24c)) _0x3c7fe3[_0x4bece7(0x239)] ? (_0x49d153(), _0x3f2ad8['style'][_0x4bece7(0x202)] = _0x4bece7(0x247)) : _0x3f2ad8[_0x4bece7(0x1bf)][_0x4bece7(0x202)] = _0x4bece7(0x211);
-                else {
-                    if (_0x3c7fe3[_0x4bece7(0x22f)] === 'Font\x20Change') _0x3c7fe3['active'] ? document['body']['style'][_0x4bece7(0x223)] = _0x4bece7(0x1e8) : document[_0x4bece7(0x246)][_0x4bece7(0x1bf)][_0x4bece7(0x223)] = _0x5be34f;
-                    else _0x3c7fe3['name'] === _0x4bece7(0x231) && (_0x3c7fe3[_0x4bece7(0x239)] ? _0x41fd47[_0x4bece7(0x1bf)][_0x4bece7(0x202)] = _0x4bece7(0x247) : _0x41fd47[_0x4bece7(0x1bf)]['display'] = 'none');
-                }
-            }
-        });
-    }), document[_0x4a34c0(0x246)]['appendChild'](_0x2552a7);
-    const _0x35a152 = document['createElement']('style');
-    _0x35a152[_0x4a34c0(0x22b)] = _0x4a34c0(0x244), document['head'][_0x4a34c0(0x201)](_0x35a152), document[_0x4a34c0(0x245)](_0x4a34c0(0x210), _0x236bef => {
-        const _0x449351 = _0x4a34c0,
-            _0x4bf5b8 = document['activeElement'][_0x449351(0x220)] === 'INPUT' || document[_0x449351(0x1ca)]['tagName'] === 'TEXTAREA';
-        !_0x4bf5b8 && _0x236bef[_0x449351(0x237)] === 'l' && (_0x2552a7[_0x449351(0x1bf)][_0x449351(0x202)] = _0x2552a7[_0x449351(0x1bf)][_0x449351(0x202)] === _0x449351(0x211) ? _0x449351(0x247) : _0x449351(0x211));
-    });
-    const _0x41fd47 = document[_0x4a34c0(0x236)](_0x4a34c0(0x212));
-    _0x41fd47['style'][_0x4a34c0(0x202)] = _0x4a34c0(0x211), _0x41fd47[_0x4a34c0(0x1bf)]['zIndex'] = '10000', _0x41fd47[_0x4a34c0(0x1bf)][_0x4a34c0(0x1c3)] = _0x4a34c0(0x222), _0x41fd47[_0x4a34c0(0x1bf)][_0x4a34c0(0x249)] = _0x4a34c0(0x1cd), _0x41fd47['style'][_0x4a34c0(0x204)] = _0x4a34c0(0x1d7), _0x41fd47[_0x4a34c0(0x1bf)]['position'] = 'fixed', _0x41fd47[_0x4a34c0(0x1bf)][_0x4a34c0(0x1ef)] = GM_getValue(_0x4a34c0(0x1ef)) ? GM_getValue(_0x4a34c0(0x1ef)) + 'px' : _0x4a34c0(0x1bb), _0x41fd47[_0x4a34c0(0x1bf)][_0x4a34c0(0x1f9)] = GM_getValue(_0x4a34c0(0x1f9)) ? GM_getValue('top') + 'px' : _0x4a34c0(0x1bb), _0x41fd47[_0x4a34c0(0x1bf)][_0x4a34c0(0x1db)] = _0x4a34c0(0x224), _0x41fd47[_0x4a34c0(0x1bf)][_0x4a34c0(0x230)] = _0x4a34c0(0x211), _0x41fd47[_0x4a34c0(0x1bf)][_0x4a34c0(0x1f1)] = _0x4a34c0(0x1d0), window[_0x4a34c0(0x245)]('load', () => document[_0x4a34c0(0x246)][_0x4a34c0(0x201)](_0x41fd47));
-    let _0x171e9e = ![];
-    _0x41fd47[_0x4a34c0(0x245)](_0x4a34c0(0x242), _0x32f026 => {
-        const _0x15f597 = _0x4a34c0;
-        _0x32f026[_0x15f597(0x1f3)][_0x15f597(0x1f7)] !== _0x15f597(0x23f) && (_0x171e9e = !![]);
-    }), document[_0x4a34c0(0x245)](_0x4a34c0(0x1bd), _0x3f55af => {
-        const _0x3cd177 = _0x4a34c0;
-        if (_0x171e9e) {
-            const _0x129c77 = _0x3f55af['clientX'],
-                _0x3d7fce = _0x3f55af[_0x3cd177(0x24a)];
-            _0x41fd47[_0x3cd177(0x1bf)][_0x3cd177(0x1ef)] = _0x129c77 + 'px', _0x41fd47[_0x3cd177(0x1bf)][_0x3cd177(0x1f9)] = _0x3d7fce + 'px', GM_setValue(_0x3cd177(0x1ef), _0x129c77), GM_setValue(_0x3cd177(0x1f9), _0x3d7fce);
+  })
+  document.addEventListener('mouseup', () => {
+    mouseDownOnNonInputElement = false
+  })
+  const createKeystrokesElement = (text, top, left) => {
+      const createdDiv = document.createElement('div')
+      return (
+        (createdDiv.style.position = 'fixed'),
+        (createdDiv.style.color = '#ffffff'),
+        (createdDiv.textContent = text),
+        (createdDiv.style.top = top),
+        (createdDiv.style.left = left),
+        (createdDiv.style.transform = 'translateX(-50%)'),
+        (createdDiv.style.zIndex = '10000'),
+        (createdDiv.style.fontWeight = 'bold'),
+        (createdDiv.style.borderRadius = '0'),
+        (createdDiv.style.backgroundColor = 'rgba(128, 128, 128, 0.7)'),
+        (createdDiv.style.border = '3px solid #333333'),
+        (createdDiv.style.fontSize = '24px'),
+        (createdDiv.style.height = '50px'),
+        (createdDiv.style.width = '50px'),
+        (createdDiv.style.textAlign = 'center'),
+        (createdDiv.style.lineHeight = '50px'),
+        (createdDiv.style.fontFamily = 'Roboto Mono, monospace'),
+        createdDiv
+      )
+    },
+    wKey = createKeystrokesElement('W', '5px', '50%'),
+    sKey = createKeystrokesElement('S', '60px', '50%'),
+    aKey = createKeystrokesElement('A', '60px', '31.5%'),
+    dKey = createKeystrokesElement('D', '60px', '68%'),
+    lmbKeystroke = document.createElement('div')
+  lmbKeystroke.style.position = 'fixed'
+  lmbKeystroke.style.color = '#ffffff'
+  lmbKeystroke.textContent = 'LMB'
+  lmbKeystroke.style.top = '115px'
+  lmbKeystroke.style.left = '23%'
+  lmbKeystroke.style.width = '79px'
+  lmbKeystroke.style.zIndex = '10000'
+  lmbKeystroke.style.fontWeight = 'bold'
+  lmbKeystroke.style.borderRadius = '0'
+  lmbKeystroke.style.backgroundColor = 'rgba(128, 128, 128, 0.7)'
+  lmbKeystroke.style.border = '3px solid #333333'
+  lmbKeystroke.style.fontSize = '18px'
+  lmbKeystroke.style.height = '50px'
+  lmbKeystroke.style.textAlign = 'center'
+  lmbKeystroke.style.lineHeight = '50px'
+  lmbKeystroke.style.fontFamily = 'Roboto Mono, monospace'
+  const rmbKeystroke = document.createElement('div')
+  rmbKeystroke.style.position = 'fixed'
+  rmbKeystroke.style.color = '#ffffff'
+  rmbKeystroke.textContent = 'RMB'
+  rmbKeystroke.style.top = '115px'
+  rmbKeystroke.style.left = '50%'
+  rmbKeystroke.style.width = '79px'
+  rmbKeystroke.style.zIndex = '10000'
+  rmbKeystroke.style.fontWeight = 'bold'
+  rmbKeystroke.style.borderRadius = '0'
+  rmbKeystroke.style.backgroundColor = 'rgba(128, 128, 128, 0.7)'
+  rmbKeystroke.style.border = '3px solid #333333'
+  rmbKeystroke.style.fontSize = '18px'
+  rmbKeystroke.style.height = '50px'
+  rmbKeystroke.style.textAlign = 'center'
+  rmbKeystroke.style.lineHeight = '50px'
+  rmbKeystroke.style.fontFamily = 'Roboto Mono, monospace'
+  const spacebarKeyElement = document.createElement('div')
+  spacebarKeyElement.style.position = 'fixed'
+  spacebarKeyElement.style.color = '#ffffff'
+  spacebarKeyElement.textContent = '_____'
+  spacebarKeyElement.style.top = '170px'
+  spacebarKeyElement.style.left = '50%'
+  spacebarKeyElement.style.transform = 'translateX(-50%)'
+  spacebarKeyElement.style.zIndex = '10000'
+  spacebarKeyElement.style.fontWeight = 'bold'
+  spacebarKeyElement.style.borderRadius = '0'
+  spacebarKeyElement.style.backgroundColor = 'rgba(128, 128, 128, 0.7)'
+  spacebarKeyElement.style.border = '3px solid #333333'
+  spacebarKeyElement.style.fontSize = '18px'
+  spacebarKeyElement.style.height = '50px'
+  spacebarKeyElement.style.width = '160px'
+  spacebarKeyElement.style.textAlign = 'center'
+  spacebarKeyElement.style.lineHeight = '50px'
+  spacebarKeyElement.style.fontFamily = 'Roboto Mono, monospace'
+  keystrokesDisplay.appendChild(wKey)
+  keystrokesDisplay.appendChild(sKey)
+  keystrokesDisplay.appendChild(aKey)
+  keystrokesDisplay.appendChild(dKey)
+  keystrokesDisplay.appendChild(lmbKeystroke)
+  keystrokesDisplay.appendChild(rmbKeystroke)
+  keystrokesDisplay.appendChild(spacebarKeyElement)
+  document.addEventListener('keydown', (event) => {
+    if (event.code === 'KeyW') {
+      wKey.style.backgroundColor = '#8B0000'
+    } else {
+      if (event.code === 'KeyS') {
+        sKey.style.backgroundColor = '#8B0000'
+      } else {
+        if (event.code === 'KeyA') {
+          aKey.style.backgroundColor = '#8B0000'
+        } else {
+          if (event.code === 'KeyD') {
+            dKey.style.backgroundColor = '#8B0000'
+          } else {
+            event.code === 'Space' &&
+              (spacebarKeyElement.style.backgroundColor = '#8B0000')
+          }
         }
-    }), document['addEventListener'](_0x4a34c0(0x1e2), () => {
-        _0x171e9e = ![];
-    });
-    const _0x5ec765 = (_0x2d14ab, _0x31c523, _0x3c0bb4) => {
-            const _0x35d77d = _0x4a34c0,
-                _0x1abb39 = document[_0x35d77d(0x236)]('div');
-            return _0x1abb39['style'][_0x35d77d(0x22a)] = _0x35d77d(0x1e6), _0x1abb39[_0x35d77d(0x1bf)]['color'] = _0x35d77d(0x21c), _0x1abb39[_0x35d77d(0x22b)] = _0x2d14ab, _0x1abb39[_0x35d77d(0x1bf)][_0x35d77d(0x1f9)] = _0x31c523, _0x1abb39[_0x35d77d(0x1bf)][_0x35d77d(0x1ef)] = _0x3c0bb4, _0x1abb39[_0x35d77d(0x1bf)][_0x35d77d(0x204)] = 'translateX(-50%)', _0x1abb39[_0x35d77d(0x1bf)][_0x35d77d(0x1eb)] = '10000', _0x1abb39[_0x35d77d(0x1bf)]['fontWeight'] = _0x35d77d(0x1ee), _0x1abb39['style']['borderRadius'] = '0', _0x1abb39[_0x35d77d(0x1bf)][_0x35d77d(0x1f1)] = 'rgba(128,\x20128,\x20128,\x200.7)', _0x1abb39[_0x35d77d(0x1bf)][_0x35d77d(0x248)] = _0x35d77d(0x1c7), _0x1abb39[_0x35d77d(0x1bf)]['fontSize'] = _0x35d77d(0x1fd), _0x1abb39[_0x35d77d(0x1bf)][_0x35d77d(0x249)] = _0x35d77d(0x241), _0x1abb39[_0x35d77d(0x1bf)]['width'] = _0x35d77d(0x241), _0x1abb39['style'][_0x35d77d(0x1f6)] = _0x35d77d(0x1c6), _0x1abb39[_0x35d77d(0x1bf)][_0x35d77d(0x20a)] = '50px', _0x1abb39[_0x35d77d(0x1bf)][_0x35d77d(0x223)] = _0x35d77d(0x1e8), _0x1abb39;
-        },
-        _0x2fea7f = _0x5ec765('W', _0x4a34c0(0x221), _0x4a34c0(0x1bb)),
-        _0x1c3584 = _0x5ec765('S', _0x4a34c0(0x1f2), _0x4a34c0(0x1bb)),
-        _0x16704a = _0x5ec765('A', '60px', _0x4a34c0(0x205)),
-        _0x58bd45 = _0x5ec765('D', _0x4a34c0(0x1f2), _0x4a34c0(0x228)),
-        _0x2bcc15 = document[_0x4a34c0(0x236)]('div');
-    _0x2bcc15[_0x4a34c0(0x1bf)]['position'] = 'fixed', _0x2bcc15['style'][_0x4a34c0(0x24e)] = _0x4a34c0(0x21c), _0x2bcc15[_0x4a34c0(0x22b)] = 'LMB', _0x2bcc15[_0x4a34c0(0x1bf)][_0x4a34c0(0x1f9)] = _0x4a34c0(0x215), _0x2bcc15[_0x4a34c0(0x1bf)][_0x4a34c0(0x1ef)] = _0x4a34c0(0x200), _0x2bcc15[_0x4a34c0(0x1bf)][_0x4a34c0(0x1c3)] = _0x4a34c0(0x232), _0x2bcc15['style'][_0x4a34c0(0x1eb)] = _0x4a34c0(0x1d8), _0x2bcc15[_0x4a34c0(0x1bf)][_0x4a34c0(0x1ea)] = _0x4a34c0(0x1ee), _0x2bcc15[_0x4a34c0(0x1bf)][_0x4a34c0(0x1e9)] = '0', _0x2bcc15[_0x4a34c0(0x1bf)][_0x4a34c0(0x1f1)] = 'rgba(128,\x20128,\x20128,\x200.7)', _0x2bcc15[_0x4a34c0(0x1bf)][_0x4a34c0(0x248)] = _0x4a34c0(0x1c7), _0x2bcc15[_0x4a34c0(0x1bf)][_0x4a34c0(0x20f)] = _0x4a34c0(0x1e3), _0x2bcc15[_0x4a34c0(0x1bf)]['height'] = _0x4a34c0(0x241), _0x2bcc15[_0x4a34c0(0x1bf)][_0x4a34c0(0x1f6)] = _0x4a34c0(0x1c6), _0x2bcc15[_0x4a34c0(0x1bf)][_0x4a34c0(0x20a)] = _0x4a34c0(0x241), _0x2bcc15['style'][_0x4a34c0(0x223)] = _0x4a34c0(0x1e8);
-    const _0x30ca6b = document[_0x4a34c0(0x236)]('div');
-    _0x30ca6b[_0x4a34c0(0x1bf)][_0x4a34c0(0x22a)] = _0x4a34c0(0x1e6), _0x30ca6b[_0x4a34c0(0x1bf)][_0x4a34c0(0x24e)] = _0x4a34c0(0x21c), _0x30ca6b[_0x4a34c0(0x22b)] = 'RMB', _0x30ca6b[_0x4a34c0(0x1bf)]['top'] = _0x4a34c0(0x215), _0x30ca6b['style']['left'] = '50%', _0x30ca6b[_0x4a34c0(0x1bf)][_0x4a34c0(0x1c3)] = _0x4a34c0(0x232), _0x30ca6b['style'][_0x4a34c0(0x1eb)] = _0x4a34c0(0x1d8), _0x30ca6b['style'][_0x4a34c0(0x1ea)] = _0x4a34c0(0x1ee), _0x30ca6b['style'][_0x4a34c0(0x1e9)] = '0', _0x30ca6b['style'][_0x4a34c0(0x1f1)] = _0x4a34c0(0x1d2), _0x30ca6b[_0x4a34c0(0x1bf)][_0x4a34c0(0x248)] = _0x4a34c0(0x1c7), _0x30ca6b[_0x4a34c0(0x1bf)][_0x4a34c0(0x20f)] = _0x4a34c0(0x1e3), _0x30ca6b[_0x4a34c0(0x1bf)][_0x4a34c0(0x249)] = '50px', _0x30ca6b[_0x4a34c0(0x1bf)][_0x4a34c0(0x1f6)] = _0x4a34c0(0x1c6), _0x30ca6b[_0x4a34c0(0x1bf)][_0x4a34c0(0x20a)] = '50px', _0x30ca6b[_0x4a34c0(0x1bf)][_0x4a34c0(0x223)] = _0x4a34c0(0x1e8);
-    const _0x545800 = document[_0x4a34c0(0x236)]('div');
-    _0x545800[_0x4a34c0(0x1bf)][_0x4a34c0(0x22a)] = 'fixed', _0x545800[_0x4a34c0(0x1bf)]['color'] = _0x4a34c0(0x21c), _0x545800[_0x4a34c0(0x22b)] = _0x4a34c0(0x1c9), _0x545800[_0x4a34c0(0x1bf)][_0x4a34c0(0x1f9)] = _0x4a34c0(0x20b), _0x545800['style']['left'] = _0x4a34c0(0x1bb), _0x545800['style'][_0x4a34c0(0x204)] = _0x4a34c0(0x234), _0x545800[_0x4a34c0(0x1bf)][_0x4a34c0(0x1eb)] = _0x4a34c0(0x1d8), _0x545800[_0x4a34c0(0x1bf)][_0x4a34c0(0x1ea)] = _0x4a34c0(0x1ee), _0x545800[_0x4a34c0(0x1bf)][_0x4a34c0(0x1e9)] = '0', _0x545800[_0x4a34c0(0x1bf)][_0x4a34c0(0x1f1)] = _0x4a34c0(0x1d2), _0x545800[_0x4a34c0(0x1bf)]['border'] = _0x4a34c0(0x1c7), _0x545800[_0x4a34c0(0x1bf)][_0x4a34c0(0x20f)] = _0x4a34c0(0x1e3), _0x545800[_0x4a34c0(0x1bf)]['height'] = _0x4a34c0(0x241), _0x545800[_0x4a34c0(0x1bf)]['width'] = _0x4a34c0(0x23b), _0x545800[_0x4a34c0(0x1bf)][_0x4a34c0(0x1f6)] = _0x4a34c0(0x1c6), _0x545800['style'][_0x4a34c0(0x20a)] = _0x4a34c0(0x241), _0x545800[_0x4a34c0(0x1bf)][_0x4a34c0(0x223)] = 'Roboto\x20Mono,\x20monospace', _0x41fd47[_0x4a34c0(0x201)](_0x2fea7f), _0x41fd47[_0x4a34c0(0x201)](_0x1c3584), _0x41fd47[_0x4a34c0(0x201)](_0x16704a), _0x41fd47[_0x4a34c0(0x201)](_0x58bd45), _0x41fd47['appendChild'](_0x2bcc15), _0x41fd47[_0x4a34c0(0x201)](_0x30ca6b), _0x41fd47[_0x4a34c0(0x201)](_0x545800), document[_0x4a34c0(0x245)](_0x4a34c0(0x210), _0x472d28 => {
-        const _0x174ca9 = _0x4a34c0;
-        if (_0x472d28[_0x174ca9(0x1f8)] === _0x174ca9(0x1c1)) _0x2fea7f[_0x174ca9(0x1bf)][_0x174ca9(0x1f1)] = '#8B0000';
-        else {
-            if (_0x472d28[_0x174ca9(0x1f8)] === 'KeyS') _0x1c3584[_0x174ca9(0x1bf)][_0x174ca9(0x1f1)] = _0x174ca9(0x21a);
-            else {
-                if (_0x472d28[_0x174ca9(0x1f8)] === _0x174ca9(0x24d)) _0x16704a[_0x174ca9(0x1bf)][_0x174ca9(0x1f1)] = '#8B0000';
-                else {
-                    if (_0x472d28[_0x174ca9(0x1f8)] === 'KeyD') _0x58bd45[_0x174ca9(0x1bf)][_0x174ca9(0x1f1)] = _0x174ca9(0x21a);
-                    else _0x472d28[_0x174ca9(0x1f8)] === _0x174ca9(0x20e) && (_0x545800[_0x174ca9(0x1bf)]['backgroundColor'] = _0x174ca9(0x21a));
-                }
-            }
+      }
+    }
+  })
+  document.addEventListener('keyup', (event) => {
+    if (event.code === 'KeyW') {
+      wKey.style.backgroundColor = 'rgba(128, 128, 128, 0.7)'
+    } else {
+      if (event.code === 'KeyS') {
+        sKey.style.backgroundColor = 'rgba(128, 128, 128, 0.7)'
+      } else {
+        if (event.code === 'KeyA') {
+          aKey.style.backgroundColor = 'rgba(128, 128, 128, 0.7)'
+        } else {
+          if (event.code === 'KeyD') {
+            dKey.style.backgroundColor = 'rgba(128, 128, 128, 0.7)'
+          } else {
+            event.code === 'Space' &&
+              (spacebarKeyElement.style.backgroundColor = 'rgba(128, 128, 128, 0.7)')
+          }
         }
-    }), document[_0x4a34c0(0x245)](_0x4a34c0(0x20d), _0x3c9193 => {
-        const _0x277bf9 = _0x4a34c0;
-        if (_0x3c9193[_0x277bf9(0x1f8)] === _0x277bf9(0x1c1)) _0x2fea7f[_0x277bf9(0x1bf)]['backgroundColor'] = 'rgba(128,\x20128,\x20128,\x200.7)';
-        else {
-            if (_0x3c9193[_0x277bf9(0x1f8)] === _0x277bf9(0x1cb)) _0x1c3584['style'][_0x277bf9(0x1f1)] = _0x277bf9(0x1d2);
-            else {
-                if (_0x3c9193[_0x277bf9(0x1f8)] === _0x277bf9(0x24d)) _0x16704a[_0x277bf9(0x1bf)]['backgroundColor'] = _0x277bf9(0x1d2);
-                else {
-                    if (_0x3c9193[_0x277bf9(0x1f8)] === _0x277bf9(0x21b)) _0x58bd45['style'][_0x277bf9(0x1f1)] = 'rgba(128,\x20128,\x20128,\x200.7)';
-                    else _0x3c9193[_0x277bf9(0x1f8)] === _0x277bf9(0x20e) && (_0x545800[_0x277bf9(0x1bf)][_0x277bf9(0x1f1)] = _0x277bf9(0x1d2));
-                }
-            }
-        }
-    }), document[_0x4a34c0(0x245)](_0x4a34c0(0x242), _0x148db6 => {
-        const _0x3bce7b = _0x4a34c0;
-        if (_0x148db6['button'] === 0x0) _0x2bcc15[_0x3bce7b(0x1bf)]['backgroundColor'] = _0x3bce7b(0x21a);
-        else _0x148db6[_0x3bce7b(0x1fb)] === 0x2 && (_0x30ca6b['style'][_0x3bce7b(0x1f1)] = _0x3bce7b(0x21a));
-    }), document[_0x4a34c0(0x245)]('mouseup', _0x248084 => {
-        const _0x3ea577 = _0x4a34c0;
-        if (_0x248084[_0x3ea577(0x1fb)] === 0x0) _0x2bcc15['style'][_0x3ea577(0x1f1)] = _0x3ea577(0x1d2);
-        else _0x248084[_0x3ea577(0x1fb)] === 0x2 && (_0x30ca6b[_0x3ea577(0x1bf)][_0x3ea577(0x1f1)] = _0x3ea577(0x1d2));
-    }), _0x182d02(), _0x2f51f1();
-}()));
-
-function _0x4b42(_0x1b8884, _0x29cc25) {
-    const _0x5dcf5a = _0x5dcf();
-    return _0x4b42 = function(_0x4b423b, _0x15363c) {
-        _0x4b423b = _0x4b423b - 0x1ba;
-        let _0x56b59d = _0x5dcf5a[_0x4b423b];
-        return _0x56b59d;
-    }, _0x4b42(_0x1b8884, _0x29cc25);
-}
-
-function _0x5dcf() {
-    const _0x1938ef = ['INPUT', 'parse', '50px', 'mousedown', 'Font\x20Change', '\x0a\x20\x20\x20\x20\x20\x20\x20\x20.switch\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20position:\x20relative;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20inline-block;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20width:\x2034px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20height:\x2020px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transition:\x20transform\x200.2s;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20.switch:hover\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transform:\x20scale(1.1);\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20.switch\x20input\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20opacity:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20width:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20height:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20.slider\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20position:\x20absolute;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20cursor:\x20pointer;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20top:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20left:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20right:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20bottom:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20#ccc;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2034px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transition:\x20.4s;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20.slider:before\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20position:\x20absolute;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20content:\x20\x22\x22;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20height:\x2016px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20width:\x2016px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20left:\x202px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20bottom:\x202px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20white;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2050%;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transition:\x20.4s;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20input:checked\x20+\x20.slider\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20#28a745;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20input:checked\x20+\x20.slider:before\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transform:\x20translateX(14px);\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20.module\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transition:\x20transform\x200.2s,\x20background-color\x200.2s;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20.module:hover\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transform:\x20scale(1.02);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20#3c3c3c;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20.fps-display,\x0a\x20\x20\x20\x20\x20\x20\x20\x20.cps-display\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20position:\x20fixed;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20rgba(0,\x200,\x200,\x200.8);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20white;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x205px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x204px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-family:\x20\x27Roboto\x20Mono\x27,\x20monospace;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20z-index:\x2010000;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20', 'addEventListener', 'body', 'block', 'border', 'height', 'clientY', 'getItem', 'FPS\x20Display', 'KeyA', 'color', 'FPS\x20Boost', '50%', 'switch', 'mousemove', 'label', 'style', '\x0a\x20\x20\x20\x20\x20\x20\x20\x20<span>unverified</span>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<span\x20style=\x22color:\x20red;\x20font-size:\x2020px;\x20margin-left:\x205px;\x20display:\x20inline-block;\x20transform:\x20rotate(180deg);\x22>&#10004;</span>\x0a\x20\x20\x20\x20', 'KeyW', '250px', 'width', 'bottom', 'innerHTML', 'center', '3px\x20solid\x20#333333', 'white', '_____', 'activeElement', 'KeyS', 'justifyContent', '200px', 'cursor', 'draggable', 'transparent', '#2a2a2a', 'rgba(128,\x20128,\x20128,\x200.7)', 'CPS:\x20', 'marginRight', 'module-name', 'CPS\x20Counter', 'translate(-50%,\x20-50%)', '10000', 'dataset', 'pointerEvents', 'opacity', 'type', 'padding', '4px', 'innerText', '2XBjitj', '1008iRlBSS', 'mouseup', '18px', '1717566eMprom', 'modulesSettings', 'fixed', 'removeEventListener', 'Roboto\x20Mono,\x20monospace', 'borderRadius', 'fontWeight', 'zIndex', '.module[data-name=\x22', 'marginBottom', 'bold', 'left', 'stringify', 'backgroundColor', '60px', 'target', 'move', '1707928BbROmO', 'textAlign', 'nodeName', 'code', 'top', '282856btwVJa', 'button', 'setItem', '24px', 'change', '0\x200\x2010px\x20rgba(255,\x200,\x200,\x200.8)', '23%', 'appendChild', 'display', '10px', 'transform', '31.5%', '103631gIqZOo', '1920yQzMKA', 'checkbox', 'querySelector', 'lineHeight', '170px', 'right', 'keyup', 'Space', 'fontSize', 'keydown', 'none', 'div', '8px', 'span', '115px', 'space-between', 'now', '14gARGAx', '40px', '#8B0000', 'KeyD', '#ffffff', '3ZZfzwk', '1725590EhTrhd', '\x22]\x20input', 'tagName', '5px', '300px', 'fontFamily', '100%', '741592vJIGSL', 'clientX', 'checked', '68%', '62670kLUPiK', 'position', 'textContent', 'className', '100px', 'alignItems', 'name', 'boxShadow', 'Keystrokes', '79px', '20px', 'translateX(-50%)', 'click', 'createElement', 'key', 'relative', 'active', 'input', '160px', 'toggle', 'getBoundingClientRect', 'textShadow'];
-    _0x5dcf = function() {
-        return _0x1938ef;
-    };
-    return _0x5dcf();
-}
+      }
+    }
+  })
+  document.addEventListener('mousedown', (event) => {
+    if (event.button === 0) {
+      lmbKeystroke.style.backgroundColor = '#8B0000'
+    } else {
+      event.button === 2 && (rmbKeystroke.style.backgroundColor = '#8B0000')
+    }
+  })
+  document.addEventListener('mouseup', (event) => {
+    if (event.button === 0) {
+      lmbKeystroke.style.backgroundColor = 'rgba(128, 128, 128, 0.7)'
+    } else {
+      event.button === 2 &&
+        (rmbKeystroke.style.backgroundColor = 'rgba(128, 128, 128, 0.7)')
+    }
+  })
+  loadSettings()
+  addFPSAnimationFrame()
+})()
